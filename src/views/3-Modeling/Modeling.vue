@@ -199,10 +199,60 @@
             this.seg_id_nat = [...new Set(rmse_monthly.map(item => item.seg_id_nat))];
             this.year = [...new Set(rmse_monthly.map(item => item.year))];
             this.month = [...new Set(rmse_monthly.map(item => item.month))];
+
+
+            // BEGIN BREAK TESTING
+            // get parameters of realistic data
+                    var setOf_seg_id_nat = [...new Set(rmse_monthly.map(item => item.seg_id_nat))];
+                    var setOf_year = [...new Set(rmse_monthly.map(item => item.year))];
+                    var setOf_month = [...new Set(rmse_monthly.map(item => item.month))];
+                    var setOf_n = [...new Set(rmse_monthly.map(item => item.n))];
+                    var setOf_ANN = [...new Set(rmse_monthly.map(item => item.ANN))];
+                    var setOf_RGCN = [...new Set(rmse_monthly.map(item => item.RGCN))];
+                    var setOf_RGCN_ptrn = [...new Set(rmse_monthly.map(item => item.RGCN_ptrn))];
+                    var setOf_RNN = [...new Set(rmse_monthly.map(item => item.RNN))];
+                    var setOf_range = [...new Set(rmse_monthly.map(item => item.range))];
+
+                    // random integer function
+                    function getRandInt(max){
+                      return Math.floor(Math.random() * Math.floor(max));
+                    }
+
+                    // Generate empty array for fake data to live in
+                    let rmse_monthly_fake = [];
+
+                    // set size of data HERE for testing
+                    var size = 500;
+
+                    // create loop that makes objects for the array of length "size" and selects a random occurence from the original data set.  Basically it's a shuffler more than a generator. 
+                    for (var i=0; i<size; i++) {
+                      rmse_monthly_fake[i] = {
+                        seg_id_natL: setOf_seg_id_nat[getRandInt(setOf_seg_id_nat.length)],
+                        year: setOf_year[getRandInt(setOf_year.length)],
+                        month: setOf_month[getRandInt(setOf_month.length)],
+                        n: setOf_n[getRandInt(setOf_n.length)],
+                        ANN: setOf_ANN[getRandInt(setOf_ANN.length)], 
+                        RGCN: setOf_RGCN[getRandInt(setOf_RGCN.length)],
+                        RGCN_ptrn: setOf_RGCN_ptrn[getRandInt(setOf_RGCN_ptrn.length)],
+                        RNN: setOf_RNN[getRandInt(setOf_RNN.length)],
+                        range: setOf_range[getRandInt(setOf_range.length)]
+                      }
+                    }
+                    console.log(rmse_monthly_fake, "fake!!")
+
+                    // set the initial column read in to the beeswarm
+                    var data_set = 'range';
+
+
+            // END BREAK TESTING
             
             var model_list = ['ANN','RNN','RGCN','ANN', 'RNN', 'RGCN', 'RGCN_ptrn','RGCN_ptrn','ANN'];
             var data_set = model_list[this.step];
-            this.setChart(rmse_monthly, data_set);
+                    // THIS IS THE REAL LINE OF CODE! Recomment this back in to use real data
+        // this.setChart(rmse_monthly, data_set);
+        // INSTEAD, THIS IS THE FAKE CODE
+        this.setChart(rmse_monthly_fake, data_set);
+
 
           },
           // resize to keep scroller accurate
